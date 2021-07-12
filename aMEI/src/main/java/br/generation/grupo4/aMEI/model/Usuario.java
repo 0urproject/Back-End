@@ -1,18 +1,22 @@
 package br.generation.grupo4.aMEI.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.istack.NotNull;
 
 @Entity
 @Table(name="tb_usuario")
@@ -22,26 +26,41 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotNull
+	@NotEmpty
 	@Size(min=5, max=150)
 	private String nome;
 	
-	@NotNull
+	@NotEmpty
 	@Size(min=5, max=100)
+	@Email
 	private String email;
 
-	@NotNull
+	@NotEmpty
 	@Size(min=5, max=200)
 	private String senha;
 	
-	@NotNull
+	@NotEmpty
 	@Size(min=5, max=500)
 	private String descricaoPerfil;
+	
+	@Column(name = "dt_nascimento")
+	@JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dataNascimento; 
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("usuario")
     private List<Postagem> postagem;
+	
+	public Usuario() {}
 
+	public Usuario(long id, String nome, String email, String senha, String descricaoPerfil,LocalDate datanascimento) {
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+		this.descricaoPerfil = descricaoPerfil;
+		this.dataNascimento = datanascimento;
+	}
 
 	public long getId() {
 		return id;
@@ -82,7 +101,15 @@ public class Usuario {
 	public void setDescricaoPerfil(String descricaoPerfil) {
 		this.descricaoPerfil = descricaoPerfil;
 	}
+	
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
 
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+	
 	public List<Postagem> getPostagem() {
 		return postagem;
 	}
