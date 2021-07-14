@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.generation.grupo4.aMEI.model.Postagem;
 import br.generation.grupo4.aMEI.repository.PostagemRepository;
+import br.generation.grupo4.aMEI.service.PostagemService;
 
 
 
@@ -27,6 +28,9 @@ public class PostagemController {
 	
 	@Autowired
 	private PostagemRepository repository;
+	
+	@Autowired
+	private PostagemService service;
 	
 	@GetMapping
 	public ResponseEntity<List<Postagem>>GetAll() {
@@ -58,5 +62,13 @@ public class PostagemController {
 	@DeleteMapping ("/deletar/{id}")
 	public void deletePostagem (@PathVariable long id) {
 		repository.deleteById(id);
+	}
+	@PutMapping ("/likes/{id}")
+	public Postagem curtir (@PathVariable long id ) {
+		return service.curtir(id);
+	}
+	@PutMapping ("/dislikes/{id}")
+	public Postagem descurtir (@PathVariable long id ) {
+		return service.descurtir(id);
 	}
 }

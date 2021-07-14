@@ -33,38 +33,33 @@ public class UsuarioController {
 	
 	@GetMapping("/todos")
 	public ResponseEntity<List<Usuario>> getAll() {
-		return ResponseEntity.ok(usuarioRepository.findAll());
-	
-	}
-	
+		return ResponseEntity.ok(usuarioRepository.findAll());	
+	}	
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> getById(@PathVariable long id) {
 		return usuarioRepository.findById(id)
 			.map(resp -> ResponseEntity.ok(resp))
 			.orElse(ResponseEntity.notFound().build());				
-	
-	}
-	
+	}	
 	@PostMapping("/logar")
 	public ResponseEntity<UsuarioLogin> autenticationUsuario(@RequestBody Optional<UsuarioLogin> usuariologin) {
 		return usuarioService.logarUsuario(usuariologin)
 			.map(resp -> ResponseEntity.ok(resp))
-			.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
-	
-	}
-	
+			.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());	
+	}	
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
 		
-		Optional<Usuario> newUser = usuarioService.cadastrarUsuario(usuario);
-		try {
-			return ResponseEntity.ok(newUser.get());
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().build();
-		}
+		Usuario newUser = usuarioService.cadastrarUsuario(usuario);
 		
+		try {
+			return ResponseEntity.ok(newUser);
+			
+		} catch (Exception e) {
+			
+			return ResponseEntity.badRequest().build();
+		}				
 	}
-	
 	@PutMapping("/alterar")
 	public ResponseEntity<Usuario> alterarUsuario(@RequestBody Usuario usuario) {
 		
@@ -73,8 +68,6 @@ public class UsuarioController {
 			return ResponseEntity.ok(updateUser.get());
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();
-		}
-		
-	}
-	
+		}		
+	}	
 }

@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -38,8 +39,11 @@ public class Postagem {
 	private Tema tema;
 	
 	@ManyToOne
-	@JsonIgnoreProperties("postagem")
+	@JsonIgnoreProperties({"postagem", "senha"})
 	private Usuario usuario;
+	
+	@PositiveOrZero
+	private int curtidas;
 
 	public long getId() {
 		return id;
@@ -97,6 +101,12 @@ public class Postagem {
 	public void setHashtag(String hashtag) {
 		this.hashtag = hashtag;
 	}
-	
-	
+
+	public int getCurtidas() {
+		return curtidas;
+	}
+
+	public void setCurtidas(int curtidas) {
+		this.curtidas = curtidas;
+	}
 }
