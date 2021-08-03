@@ -39,9 +39,10 @@ public class UsuarioService {
 		String senhaEncoder = encoder.encode(usuario.getSenha());
 		usuario.setSenha(senhaEncoder);
 
-		return (usuarioRepository.save(usuario));
+		return usuarioRepository.save(usuario);
 	}
 
+	
 	public Optional<Usuario> atualizarUsuario(Usuario usuario){
 		
 		if(usuarioRepository.findById(usuario.getId()).isPresent()) {
@@ -64,8 +65,10 @@ public class UsuarioService {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "Usuário não encontrado!", null);
 			
-		}	
-	}	
+		}
+		
+	}
+	
 	public Optional<UsuarioLogin> logarUsuario(Optional<UsuarioLogin> usuarioLogin) {
 
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -81,8 +84,14 @@ public class UsuarioService {
 				usuarioLogin.get().setToken(authHeader);				
 				usuarioLogin.get().setNome(usuario.get().getNome());
 				usuarioLogin.get().setSenha(usuario.get().getSenha());
+				usuarioLogin.get().setDescricaoPerfil(usuario.get().getDescricaoPerfil());
+				usuarioLogin.get().setDataNascimento(usuario.get().getDataNascimento());
+				usuarioLogin.get().setEmail(usuario.get().getEmail());
+				usuarioLogin.get().setId(usuario.get().getId());
+				usuarioLogin.get().setFoto(usuario.get().getFoto());
 				
 				return usuarioLogin;
+
 			}
 		}
 		return null;

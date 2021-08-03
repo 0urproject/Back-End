@@ -47,19 +47,22 @@ public class Usuario {
 	@JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dataNascimento; 
 	
+	private String foto;
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("usuario")
     private List<Postagem> postagem;
 	
 	public Usuario() {}
 
-	public Usuario(long id, String nome, String email, String senha, String descricaoPerfil,LocalDate datanascimento) {
+	public Usuario(long id, String nome, String email, String senha, String descricaoPerfil,LocalDate datanascimento, String foto) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.descricaoPerfil = descricaoPerfil;
 		this.dataNascimento = datanascimento;
+		this.foto = foto;
 	}
 
 	public long getId() {
@@ -118,7 +121,13 @@ public class Usuario {
 		this.postagem = postagem;
 	}
 
-	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 	
 
 }
