@@ -1,11 +1,15 @@
 package br.generation.grupo4.aMEI.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
@@ -44,6 +48,9 @@ public class Postagem {
 	
 	@PositiveOrZero
 	private int curtidas;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date date = new java.sql.Date(System.currentTimeMillis());
 
 	public long getId() {
 		return id;
@@ -109,4 +116,14 @@ public class Postagem {
 	public void setCurtidas(int curtidas) {
 		this.curtidas = curtidas;
 	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	
 }

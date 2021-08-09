@@ -48,6 +48,10 @@ public class Usuario {
     private LocalDate dataNascimento; 
 	
 	private String foto;
+	
+	@NotEmpty
+	@Size(min=5, max=500)
+	private String razaoSocial;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("usuario")
@@ -55,7 +59,7 @@ public class Usuario {
 	
 	public Usuario() {}
 
-	public Usuario(long id, String nome, String email, String senha, String descricaoPerfil,LocalDate datanascimento, String foto) {
+	public Usuario(long id, String nome, String email, String senha, String descricaoPerfil,LocalDate datanascimento, String foto, String razaoSocial) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
@@ -63,6 +67,7 @@ public class Usuario {
 		this.descricaoPerfil = descricaoPerfil;
 		this.dataNascimento = datanascimento;
 		this.foto = foto;
+		this.razaoSocial = razaoSocial;
 	}
 
 	public long getId() {
@@ -128,6 +133,16 @@ public class Usuario {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+	
+	
 	
 
 }

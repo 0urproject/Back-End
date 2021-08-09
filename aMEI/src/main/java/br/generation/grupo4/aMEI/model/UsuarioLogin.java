@@ -12,6 +12,7 @@ public class UsuarioLogin {
 	private LocalDate dataNascimento; 
 	private String foto;
 	private String descricaoPerfil;
+	private String razaoSocial;
 	
 	
 	public long getId() {
@@ -62,5 +63,13 @@ public class UsuarioLogin {
 	public void setDescricaoPerfil(String descricaoPerfil) {
 		this.descricaoPerfil = descricaoPerfil;
 	}
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+	
+	
 	
 }
